@@ -6,8 +6,28 @@ import Login from '../login/login';
 import Home from '../home/home';
 import Dashboard from '../dashboard/dashboard';
 import CompaniesCreate from '../companiesCreate/companiesCreate';
+import EmployeesCreate from '../employeesCreate/employeesCreate';
+import Companies from '../companies/companies';
+import Employees from '../employees/employees';
+import CompaniesEdit from '../companiesEdit/companiesEdit';
+import EmployeesEdit from '../employeesEdit/employeesEdit';
 import { createHashHistory } from 'history';
 import PrivateRoute from '../privateroute/privateRoute';
+import axios from 'axios';
+
+
+
+
+axios.interceptors.request.use((config) => {
+    let token =  sessionStorage.getItem('token');
+    if (token != null) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+
+
 
 export const history = createHashHistory();
 
@@ -47,15 +67,20 @@ componentDidMount(){
 
 	render(){
 		return (
-			<div>
+		<div>
 			<Router>
 			 {(this.state.loggedIn === true) ? <AdminNavbar logoutFunction={this.logout} /> : <Navbar/> }
 			  <Route path='/' exact component={Home} />
               <Route path='/login' exact render={ (props) => <Login {...props} check={ this.statusFilter } />} />
               <PrivateRoute path='/dashboard' exact component={Dashboard} />
               <PrivateRoute path='/companies/create' exact component={CompaniesCreate} />
-            </Router>
-            </div>
+              <PrivateRoute path='/employees/create' exact component={EmployeesCreate} />
+              <PrivateRoute path='/companies' exact component={Companies} />
+              <PrivateRoute path='/employees' exact component={Employees} />
+              <PrivateRoute path='/companies/:id/edit' component={CompaniesEdit} />
+              <PrivateRoute path='/employees/:id/edit' component={EmployeesEdit} />
+      </Router>
+    </div>
 			)
 
 	}

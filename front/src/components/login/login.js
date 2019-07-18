@@ -9,7 +9,7 @@ export default class Login extends Component{
  state = {
  	email: "",
  	password:"",
-  loginerror:false,
+  	loginerror:false,
  }
 
 
@@ -74,7 +74,7 @@ login = (e) => {
     				        className="btn btn-primary"
     				>Submit
     				</button>
-                      </form>
+                </form>
     			</div>
 	        </div>
 		)

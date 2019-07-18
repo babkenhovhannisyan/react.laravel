@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CompaniesValidate;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Company;
-use App\Http\Services\Companies;
+use App\Http\Requests\EmployeesValidate;
+use App\Models\Employer;
 
-class CompaniesController extends Controller
+class EmployeesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,8 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
-        $basePath = url('/storage/logos');
-        return response()->json([$companies,$basePath]);
+        $employees = Employer::all();
+        return response()->json($employees);
     }
 
     /**
@@ -38,11 +35,17 @@ class CompaniesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompaniesValidate $request)
-    {  
-
-       return Companies::store($request); 
-
+    public function store(EmployeesValidate $request)
+    {
+         $employer = new Employer;
+         $employer->firstname= $request->get('firstname');
+         $employer->lastname= $request->get('lastname');
+         $employer->company_id= $request->get('company_id');
+         $employer->email = $request->get('email');
+         $employer->phone = $request->get('phone');
+         $employer->save();
+      
+      return response()->json('Created');
     }
 
     /**
@@ -64,9 +67,9 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
-        $company = Company::findorFail($id);
+        $employer = Employer::findorFail($id);
     
-        return response()->json($company);
+        return response()->json($employer);
     }
 
     /**
@@ -76,9 +79,17 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CompaniesValidate $request, $id)
-    {             
-       return Companies::update($request, $id);     
+    public function update(EmployeesValidate $request, $id)
+    {
+            $employer = Employer::find($id);
+            $employer->firstname = request('firstname');
+            $employer->lastname = request('lastname');
+            // $company->company_id = request('company_id');
+            $employer->email = request('email');
+            $employer->phone = request('phone');
+            $employer->save();
+            
+           return response()->json('Created');
     }
 
     /**
@@ -88,11 +99,7 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { 
-        $imageName = Company::select('logo')->where('id', $id)->pluck('logo')->toArray()[0];
-        Company::find($id)->delete();
-        Storage::delete('public/logos/'.$imageName);  
-
-         return response()->json('Deleted');
+    {
+        return Employer::destroy($id);
     }
 }

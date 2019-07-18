@@ -11,7 +11,7 @@ export default class AdminNavbar extends Component {
             <div className="container">
               <Link className="navbar-brand" to="/dashboard">Laravel-test</Link>
               <Link className="navbar-brand" to="/companies/create">Add Company</Link>
-              <Link className="navbar-brand" to="/dashboard">Add Employee</Link>
+              <Link className="navbar-brand" to="/employees/create">Add Employee</Link>
             
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -24,10 +24,10 @@ export default class AdminNavbar extends Component {
                     <ul className="navbar-nav ml-auto">
                         
                            <li className="nav-item">
-                                <Link className="nav-link font-weight-bold" to=''>Companies</Link>
+                                <Link className="nav-link font-weight-bold" to='/companies'>Companies</Link>
                            </li>
                         <li className="nav-item">
-                                <Link className="nav-link font-weight-bold" to=''>Employees</Link>
+                                <Link className="nav-link font-weight-bold" to='/employees'>Employees</Link>
                         </li>
                                                  
                         <li className="nav-item">

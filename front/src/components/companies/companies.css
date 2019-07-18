@@ -1,0 +1,27 @@
+.edit{
+	background-color: blue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 5px 5px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  margin-right: 8px;
+}
+
+.delete{
+	background-color: red; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 5px 5px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer;
+}
+
+.edit:hover{
+	background-color: RoyalBlue;
+}
+
+
+.logo{
+  width: 80px;
+}
