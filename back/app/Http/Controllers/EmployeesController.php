@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\EmployeesValidate;
-use App\Models\Employer;
+use App\Http\Requests\EmployeeRequest;
+use App\Models\Employee;
+use App\Http\Services\EmployeeService;
 
 class EmployeesController extends Controller
 {
@@ -15,19 +16,9 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employer::all();
-        return response()->json($employees);
+        return EmployeeService::index();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,17 +26,9 @@ class EmployeesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeesValidate $request)
+    public function store(EmployeeRequest $request)
     {
-         $employer = new Employer;
-         $employer->firstname= $request->get('firstname');
-         $employer->lastname= $request->get('lastname');
-         $employer->company_id= $request->get('company_id');
-         $employer->email = $request->get('email');
-         $employer->phone = $request->get('phone');
-         $employer->save();
-      
-      return response()->json('Created');
+        return EmployeeService::store($request);
     }
 
     /**
@@ -56,20 +39,7 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $employer = Employer::findorFail($id);
-    
-        return response()->json($employer);
+        return EmployeeService::show($id);
     }
 
     /**
@@ -79,17 +49,9 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeesValidate $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-            $employer = Employer::find($id);
-            $employer->firstname = request('firstname');
-            $employer->lastname = request('lastname');
-            // $company->company_id = request('company_id');
-            $employer->email = request('email');
-            $employer->phone = request('phone');
-            $employer->save();
-            
-           return response()->json('Created');
+         return EmployeeService::update($request,$id);
     }
 
     /**
@@ -100,6 +62,6 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        return Employer::destroy($id);
+        return EmployeeService::destroy($id);
     }
 }

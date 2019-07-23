@@ -30,7 +30,10 @@ Route::group([
 Route::group([
     'middleware' => ['api', 'jwt.auth'],
 ], function() {
-      Route::resource('/companies','CompaniesController');
-      Route::resource('/employees','EmployeesController');
+      // Route::resource('/companies','CompaniesController');
+	    // Route::resource('/employees','EmployeesController');
+       Route::resource('/companies', 'CompaniesController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+       Route::resource('/employees', 'EmployeesController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+
 });
 

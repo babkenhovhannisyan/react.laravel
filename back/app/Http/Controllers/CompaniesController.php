@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CompaniesValidate;
+use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Company;
-use App\Http\Services\Companies;
+use App\Http\Services\CompaniesService;
 
 class CompaniesController extends Controller
 {
@@ -17,32 +17,17 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
-        $basePath = url('/storage/logos');
-        return response()->json([$companies,$basePath]);
+        return CompaniesService::index();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompaniesValidate $request)
+    public function store(CompanyRequest $request)
     {  
-
-       return Companies::store($request); 
-
+       return CompaniesService::store($request); 
     }
 
     /**
@@ -53,20 +38,7 @@ class CompaniesController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $company = Company::findorFail($id);
-    
-        return response()->json($company);
+        return CompaniesService::show($id);
     }
 
     /**
@@ -76,9 +48,9 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CompaniesValidate $request, $id)
+    public function update(CompanyRequest $request, $id)
     {             
-       return Companies::update($request, $id);     
+       return CompaniesService::update($request, $id);     
     }
 
     /**
@@ -89,10 +61,6 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     { 
-        $imageName = Company::select('logo')->where('id', $id)->pluck('logo')->toArray()[0];
-        Company::find($id)->delete();
-        Storage::delete('public/logos/'.$imageName);  
-
-         return response()->json('Deleted');
+        return CompaniesService::destroy($id);
     }
 }

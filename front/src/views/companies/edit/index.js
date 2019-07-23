@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './companiesEdit.css';
+import './index.css';
 import axios from 'axios';
 
 
@@ -41,9 +41,9 @@ fileSelectedHandler = event => {
 componentDidMount(){
 
 
-
-	axios.get(`http://127.0.0.1:8000/api/companies/${this.id}/edit`).then(response => {  
+	axios.get(`http://127.0.0.1:8000/api/companies/${this.id}`).then(response => {  
 	 const { id,name,email,logo,website } = response.data;	
+
 	   this.setState({
 	   	  company:{
 	   	  	id,
@@ -79,12 +79,6 @@ edit = (e) => {
 
    const formData = new FormData();
 
-
-
-  
-
-
-  
    formData.append('id',this.state.company.id);
    formData.append('name',this.state.company.name);
     if(!this.state.company.email){
@@ -109,7 +103,9 @@ edit = (e) => {
     headers: {'Content-Type': 'multipart/form-data'},
     data: formData,
   }).then(response=>{
-     this.props.history.push('/companies');
+      if(response.status===204){
+        this.props.history.push('/companies');
+      }
   }).catch(error=>{
     if(error.response.status===422){
              this.setState({
@@ -123,27 +119,9 @@ edit = (e) => {
 }
 
 
-
-
-
-    
-     
-  //    axios.put(`http://127.0.0.1:8000/api/companies/${this.id}`,{ ...this.state.company}).then(response => {   
-  //       this.props.history.push('/companies');
-  //     }).catch(error =>{
-  //       if(error.response.status===422){
-  //           this.setState({
-  //             validationErrors:Object.values(error.response.data.errors),
-  //           })
-  //         }
-  //     })
-  // }
-
-
   render(){
 
-
- const { name,email,website } = this.state.company;
+    const { name,email,website } = this.state.company;
  
   	return(
      <div className='container  mt-3'>

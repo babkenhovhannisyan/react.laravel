@@ -1,5 +1,5 @@
 .edit{
-	background-color: blue; /* Blue background */
+  background-color: blue; /* Blue background */
   border: none; /* Remove borders */
   color: white; /* White text */
   padding: 5px 5px; /* Some padding */
@@ -9,7 +9,7 @@
 }
 
 .delete{
-	background-color: red; /* Blue background */
+  background-color: red; /* Blue background */
   border: none; /* Remove borders */
   color: white; /* White text */
   padding: 5px 5px; /* Some padding */
@@ -18,7 +18,7 @@
 }
 
 .edit:hover{
-	background-color: RoyalBlue;
+  background-color: RoyalBlue;
 }
 
 

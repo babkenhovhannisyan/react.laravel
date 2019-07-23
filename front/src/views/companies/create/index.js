@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './companiesCreate.css';
+import './index.css';
 import axios from 'axios';
 
 
@@ -33,8 +33,6 @@ fileSelectedHandler = event => {
 
 
 
-
-
 add = (e) => {
 	e.preventDefault();
    
@@ -56,6 +54,9 @@ add = (e) => {
     headers: {'Content-Type': 'multipart/form-data' },
     data: formData,
   }).then(response=>{
+
+ 
+  if(response.status===204){
      this.setState({
            name:"",
            email:"",
@@ -64,6 +65,7 @@ add = (e) => {
            selectedFile:null,
            validationErrors:[],
          })
+  }     
   }).catch(error=>{
     if(error.response.status===422){
              this.setState({

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import './companies.css';
+import './index.css';
+
 
 
 
@@ -37,11 +38,14 @@ componentDidMount(){
     };
       
       axios.delete(`http://127.0.0.1:8000/api/companies/${id}`,{headers}).then(response=>{
-      
-       this.setState((oldState)=>{
+
+       if(response.status===204){
+         this.setState((oldState)=>{
          const companies = oldState.companies.filter((item)=> item.id!==id);
          return {...oldState,companies,postDeleted:true};
        })
+       }
+
     }).catch(error =>{
       alert(error);
     })

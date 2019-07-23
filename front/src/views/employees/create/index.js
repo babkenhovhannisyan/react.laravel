@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './employeesCreate.css';
+import './index.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
@@ -67,7 +67,8 @@ state = {
      phone:this.state.phone,
      token:token
 	}).then(response => {
-        this.setState({
+       if(response.status===204){
+          this.setState({
           firstname:"",
           lastname:"",
           company_id:"",
@@ -76,6 +77,7 @@ state = {
           created:true,
           validationErrors:[],
         })
+       }
       }).catch(error =>{
         if(error.response.status===422){
             this.setState({

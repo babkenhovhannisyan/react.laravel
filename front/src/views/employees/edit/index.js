@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './employeesEdit.css';
+import './index.css';
 import axios from 'axios';
 
 
@@ -24,7 +24,7 @@ export default class EmployeesEdit extends Component{
 
 componentDidMount(){
 
-	axios.get(`http://127.0.0.1:8000/api/employees/${this.id}/edit`).then(response => {
+	axios.get(`http://127.0.0.1:8000/api/employees/${this.id}`).then(response => {
 	 const { id,firstname,lastname,company_id,email,phone } = response.data;	
 	   this.setState({
 	   	  employer:{
@@ -60,8 +60,10 @@ onChange = (e) => {
   e.preventDefault();
     
 
-     axios.put(`http://127.0.0.1:8000/api/employees/${this.id}`,{ ...this.state.employer}).then(response => {   
-        this.props.history.push('/employees');
+     axios.put(`http://127.0.0.1:8000/api/employees/${this.id}`,{ ...this.state.employer}).then(response => {
+        if(response.status===204){
+          this.props.history.push('/employees');
+        } 
       }).catch(error =>{
         if(error.response.status===422){
             this.setState({

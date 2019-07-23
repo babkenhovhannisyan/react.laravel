@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import './employees.css';
+import './index.css';
 
 
 
@@ -30,18 +30,16 @@ componentDidMount(){
 
 
   deletePost = (id) => {
-    // let token =  sessionStorage.getItem('token');
-
-      // const headers = {
-      //   'Authorization': `Bearer ${token}`
-      // };
       
       axios.delete(`http://127.0.0.1:8000/api/employees/${id}`).then(response=>{
-      
-       this.setState((oldState)=>{
+       
+       if(response.status===204){
+        this.setState((oldState)=>{
          const employees = oldState.employees.filter((item)=> item.id!==id);
          return {...oldState,employees,postDeleted:true};
        })
+       }
+       
     }).catch(error =>{
       alert(error);
     })

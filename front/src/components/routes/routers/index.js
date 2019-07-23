@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
-import Navbar from '../navbar/navbar';
-import AdminNavbar from '../adminNavbar/adminNavbar';
-import Login from '../login/login';
-import Home from '../home/home';
-import Dashboard from '../dashboard/dashboard';
-import CompaniesCreate from '../companiesCreate/companiesCreate';
-import EmployeesCreate from '../employeesCreate/employeesCreate';
-import Companies from '../companies/companies';
-import Employees from '../employees/employees';
-import CompaniesEdit from '../companiesEdit/companiesEdit';
-import EmployeesEdit from '../employeesEdit/employeesEdit';
+import Navbar from '../../base-components/navbar';
+import AdminNavbar from '../../base-components/adminNavbar';
+import Login from '../../../views/login';
+import Home from '../../../views/home';
+import Dashboard from '../../../views/dashboard';
+import Companies from '../../../views/companies/list';
+import CompaniesCreate from '../../../views/companies/create';
+import CompaniesEdit from '../../../views/companies/edit';
+import EmployeesCreate from '../../../views/employees/create';
+import Employees from '../../../views/employees/list';
+import EmployeesEdit from '../../../views/employees/edit';
 import { createHashHistory } from 'history';
-import PrivateRoute from '../privateroute/privateRoute';
+import PrivateRoute from '../privateroute';
 import axios from 'axios';
 
 
@@ -70,7 +70,7 @@ componentDidMount(){
 		<div>
 			<Router>
 			 {(this.state.loggedIn === true) ? <AdminNavbar logoutFunction={this.logout} /> : <Navbar/> }
-			  <Route path='/' exact component={Home} />
+			        <Route path='/' exact component={Home} />
               <Route path='/login' exact render={ (props) => <Login {...props} check={ this.statusFilter } />} />
               <PrivateRoute path='/dashboard' exact component={Dashboard} />
               <PrivateRoute path='/companies/create' exact component={CompaniesCreate} />
