@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Company;
-use App\Http\Services\CompaniesService;
+use App\Services\CompaniesService;
 
 class CompaniesController extends Controller
 {
@@ -16,8 +16,8 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return CompaniesService::index();
+    { 
+        return response()->json(CompaniesService::getAll());
     }
     /**
      * Store a newly created resource in storage.
@@ -26,31 +26,33 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyRequest $request)
-    {  
-       return CompaniesService::store($request); 
+    {          
+       CompaniesService::storeData($request->all()); 
+       return response()->json(null, 204); 
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified company resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return CompaniesService::show($id);
+        return CompaniesService::getCompany($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified company in the storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response with success 204 code
      */
     public function update(CompanyRequest $request, $id)
     {             
-       return CompaniesService::update($request, $id);     
+       CompaniesService::updatePost($request->all(), $id);
+       return response()->json(null, 204);      
     }
 
     /**
@@ -61,6 +63,7 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     { 
-        return CompaniesService::destroy($id);
+        CompaniesService::delete($id);
+        return response()->json(null, 204);
     }
 }

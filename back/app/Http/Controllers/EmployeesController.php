@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
-use App\Http\Services\EmployeeService;
+use App\Services\EmployeeService;
 
 class EmployeesController extends Controller
 {
@@ -16,7 +16,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return EmployeeService::index();
+        return response()->json(EmployeeService::getAll());
     }
 
 
@@ -28,7 +28,8 @@ class EmployeesController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        return EmployeeService::store($request);
+       EmployeeService::storeData($request->all()); 
+       return response()->json(null, 204);
     }
 
     /**
@@ -39,7 +40,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        return EmployeeService::show($id);
+        
+        return response()->json(EmployeeService::getEmployee($id));
     }
 
     /**
@@ -51,7 +53,8 @@ class EmployeesController extends Controller
      */
     public function update(EmployeeRequest $request, $id)
     {
-         return EmployeeService::update($request,$id);
+         EmployeeService::updatePost($request->all(), $id);
+         return response()->json(null, 204);  
     }
 
     /**
@@ -62,6 +65,7 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        return EmployeeService::destroy($id);
+         EmployeeService::destroy($id);
+         return response()->json(null, 204);
     }
 }
