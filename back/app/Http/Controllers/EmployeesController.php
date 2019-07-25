@@ -28,8 +28,8 @@ class EmployeesController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-       EmployeeService::storeData($request->all()); 
-       return response()->json(null, 204);
+        EmployeeService::storeData($request->all());
+        return response()->json(null, 204);
     }
 
     /**
@@ -40,7 +40,6 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        
         return response()->json(EmployeeService::getEmployee($id));
     }
 
@@ -53,8 +52,8 @@ class EmployeesController extends Controller
      */
     public function update(EmployeeRequest $request, $id)
     {
-         EmployeeService::updatePost($request->all(), $id);
-         return response()->json(null, 204);  
+        EmployeeService::updatePost($request->all(), $id);
+        return response()->json(null, 204);
     }
 
     /**
@@ -65,7 +64,7 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-         EmployeeService::destroy($id);
-         return response()->json(null, 204);
+        EmployeeService::destroy($id);
+        return response()->json(null, 204);
     }
 }

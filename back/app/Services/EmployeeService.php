@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services;
 
 use Illuminate\Http\Request;
@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Employee;
 
 class EmployeeService
-{   
+{
 
     /**
        * Display a listing of the resource.
        *
        * @return \Illuminate\Http\Response
-  
+
     */
 
     public static function getAll()
-    {   
+    {
         return Employee::all();
     }
 
@@ -31,14 +31,14 @@ class EmployeeService
 
     public static function storeData($data)
     {
-             $employer = new Employee;
-             $employer->firstname= $data['firstname'];
-             $employer->lastname= $data['lastname'];
-             $employer->company_id= $data['company_id'];
-             $employer->email = $data['email'];
-             $employer->phone = $data['phone'];
-             $employer->save();	
-     }
+        $employer = new Employee;
+        $employer->firstname= $data['firstname'];
+        $employer->lastname= $data['lastname'];
+        $employer->company_id= $data['company_id'];
+        $employer->email = $data['email'];
+        $employer->phone = $data['phone'];
+        $employer->save();
+    }
 
 
     /**
@@ -51,13 +51,13 @@ class EmployeeService
 
     public static function updatePost($data, $id)
     {
-       $employer = Employee::find($id);
-       $employer->firstname = $data['firstname'];
-       $employer->lastname = $data['lastname'];
-       $employer->email = $data['email'];
-       $employer->phone = $data['phone'];
-       $employer->save();              
-     }
+        $employer = Employee::find($id);
+        $employer->firstname = $data['firstname'];
+        $employer->lastname = $data['lastname'];
+        $employer->email = $data['email'];
+        $employer->phone = $data['phone'];
+        $employer->save();
+    }
 
     /**
      * Display the specified resource.
@@ -68,7 +68,7 @@ class EmployeeService
     
     public static function getEmployee($id)
     {
-       return Employee::find($id);
+        return Employee::find($id);
     }
 
     /**
@@ -80,7 +80,6 @@ class EmployeeService
 
     public static function Destroy($id)
     {
-       Employee::destroy($id);
+        Employee::destroy($id);
     }
- 
 }

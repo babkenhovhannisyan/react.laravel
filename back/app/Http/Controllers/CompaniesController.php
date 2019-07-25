@@ -16,7 +16,7 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {
         return response()->json(CompaniesService::getAll());
     }
     /**
@@ -26,9 +26,9 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyRequest $request)
-    {          
-       CompaniesService::storeData($request->all()); 
-       return response()->json(null, 204); 
+    {
+        CompaniesService::storeData($request->all());
+        return response()->json(null, 204);
     }
 
     /**
@@ -50,9 +50,9 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response with success 204 code
      */
     public function update(CompanyRequest $request, $id)
-    {             
-       CompaniesService::updatePost($request->all(), $id);
-       return response()->json(null, 204);      
+    {
+        CompaniesService::updatePost($request->all(), $id);
+        return response()->json(null, 204);
     }
 
     /**
@@ -62,7 +62,7 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { 
+    {
         CompaniesService::delete($id);
         return response()->json(null, 204);
     }
